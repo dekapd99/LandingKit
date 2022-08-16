@@ -7,7 +7,7 @@
 
 import UIKit
 
-// Declaration of Data & Data Type
+// Declaration of data & data type for Manages Data & Business Logic
 public struct Slide {
     public let image: UIImage
     public let title: String
