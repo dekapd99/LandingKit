@@ -14,6 +14,23 @@ class LandingViewController: UIViewController {
     private let slides: [Slide]
     private let tintColor: UIColor
     
+    // Instance for View, lazy var to be able to pass properties above
+    private lazy var transitionView: TransitionView = {
+        let view = TransitionView()
+        return view
+    }()
+    private lazy var buttonContainerView: ButtonContainerView = {
+        let view = ButtonContainerView()
+        return view
+    }()
+    
+    // Instance for Encapsulation Stacks transitionView & buttonContainerView above
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [transitionView, buttonContainerView])
+        view.axis = .vertical
+        return view
+    }()
+    
     // Internal Init, we dont want to expose our Controller, let Client Communicate via LandingKit.swift
     init(slides: [Slide], tintColor: UIColor) {
         self.slides = slides
@@ -28,6 +45,20 @@ class LandingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
+    }
+    
+    // View Logics with SnapKit for Auto Layout
+    private func setupViews() {
         view.backgroundColor = .red
+        view.addSubview(stackView) // Add Subview for Views above
+        
+        stackView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view) // Pin all the edges to LandingViewController
+        }
+        
+        buttonContainerView.snp.makeConstraints { make in
+            make.height.equalTo(120) // Taking 120 pixels height for buttonContainerView
+        }
     }
 }
