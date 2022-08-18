@@ -16,7 +16,7 @@ class LandingViewController: UIViewController {
     
     // Instance for View, lazy var to be able to pass properties above
     private lazy var transitionView: TransitionView = {
-        let view = TransitionView()
+        let view = TransitionView(slides: slides, tintColor: tintColor)
         return view
     }()
     private lazy var buttonContainerView: ButtonContainerView = {
