@@ -20,7 +20,13 @@ class LandingViewController: UIViewController {
         return view
     }()
     private lazy var buttonContainerView: ButtonContainerView = {
-        let view = ButtonContainerView()
+        let view = ButtonContainerView(tintColor: tintColor)
+        view.nextButtonDidTap = {
+            print("Next Button Tapped")
+        }
+        view.getStartedButtonDidTap = {
+            print("Get Started Button Tapped")
+        }
         return view
     }()
     
@@ -48,10 +54,10 @@ class LandingViewController: UIViewController {
         setupViews()
     }
     
-    // View Logics with SnapKit for Auto Layout
+    // Callback Function for LandingViewController with Auto Layout
     private func setupViews() {
-        view.backgroundColor = .red
-        view.addSubview(stackView) // Add Subview for Views above
+        view.backgroundColor = .white
+        view.addSubview(stackView) // Add Subview for stackViews above
         
         stackView.snp.makeConstraints { make in
             make.edges.equalTo(self.view) // Pin all the edges to LandingViewController
