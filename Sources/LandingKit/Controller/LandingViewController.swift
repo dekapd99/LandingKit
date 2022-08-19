@@ -54,6 +54,11 @@ class LandingViewController: UIViewController {
         setupViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        transitionView.start()
+    }
+    
     // Callback Function for LandingViewController with Auto Layout
     private func setupViews() {
         view.backgroundColor = .white
