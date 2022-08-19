@@ -16,7 +16,6 @@ class TransitionView: UIView {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        view.backgroundColor = .yellow
         return view
     }()
     
@@ -24,7 +23,7 @@ class TransitionView: UIView {
     private lazy var barViews: [AnimatedBarView] = {
         var views: [AnimatedBarView] = []
         slides.forEach { _ in
-            views.append(AnimatedBarView())
+            views.append(AnimatedBarView(barColor: viewTintColor))
         }
         return views
     }()
@@ -94,7 +93,7 @@ class TransitionView: UIView {
         timer = DispatchSource.makeTimerSource()
         timer?.schedule(deadline: .now(), repeating: .seconds(3), leeway: .seconds(1))
         timer?.setEventHandler(handler: { [weak self] in
-            // Self Disclosure in Main Thread to avoid memory leak
+            // Self Disclosure in Main Thread to Avoid Memory Leak
             DispatchQueue.main.async {
                 self?.showNext()
             }
@@ -104,6 +103,9 @@ class TransitionView: UIView {
     // Function Each Time the Timer Show the Next Event (Image)
     private func showNext() {
         let nextImage: UIImage
+        let nextTitle: String
+        let nextBarView: AnimatedBarView
+        
         // if index is last, show first array of slides
         // else show next index
         
@@ -112,10 +114,14 @@ class TransitionView: UIView {
         
         if slides.indices.contains(index + 1) {
             nextImage = slides[index + 1].image
+            nextTitle = slides[index + 1].title
+            nextBarView = barViews[index + 1]
             index += 1
         } else {
             // we are on the last index, we want to show the first
             nextImage = slides[0].image
+            nextTitle = slides[0].title
+            nextBarView = barViews[0]
             index = 0
         }
         // Animation Transition Image, Fade in / Fade Out
@@ -126,6 +132,9 @@ class TransitionView: UIView {
             animations: {
                 self.imageView.image = nextImage
             }, completion: nil)
+        
+        titleView.setTitle(text: nextTitle)
+        nextBarView.startAnimating()
     }
     
     // Callback Function for TransitionView with Auto Layout
