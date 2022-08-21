@@ -7,7 +7,6 @@ LandingKit provides an onboarding flow that is simple and easy to implement.
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
 
 ## Requirements
 
