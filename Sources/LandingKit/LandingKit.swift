@@ -14,6 +14,7 @@ public class LandingKit {
     // Properties / Dependencies for Init
     private let slides: [Slide]
     private let tintColor: UIColor
+    private var  rootVC: UIViewController?
 
     public weak var delegate: LandingKitDelegate?
     
@@ -44,11 +45,17 @@ public class LandingKit {
 
     // Passing RootViewController when LandingKit Launches to start everything
     public func launchOnBoarding(rootVC: UIViewController) {
+        self.rootVC = rootVC
         rootVC.present(landingViewController, animated: true, completion: nil)
     }
     
     // dismissOnBoarding to free up space when it isn't used anymore
     public func dismissOnBoarding() {
+        landingViewController.stopAnimation()
         
+        // Cek to see if the landingViewController is still presented
+        if rootVC?.presentedViewController == landingViewController {
+            landingViewController.dismiss(animated: true)
+        }
     }
 }

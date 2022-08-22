@@ -66,6 +66,11 @@ class LandingViewController: UIViewController {
         transitionView.start()
     }
     
+    // Stop Animation to dismiss LandingKit retained cycle
+    func stopAnimation() {
+        transitionView.stop()
+    }
+    
     // Callback Function for LandingViewController with Auto Layout
     private func setupViews() {
         view.backgroundColor = .white
