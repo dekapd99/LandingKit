@@ -1,5 +1,11 @@
 import UIKit
 
+// Parent Observing the Client to Receive the Index of Slide
+public protocol LandingKitDelegate: AnyObject {
+    func nextButtonDidTap(atIndex index: Int)
+    func getStartedButtonDidTap()
+}
+
 // Public Interface: Where Client Consumes the Framework
 // We don't want client to access all our internal implementations
 // But rather we want to provide a public interface for them to do that
@@ -9,6 +15,8 @@ public class LandingKit {
     private let slides: [Slide]
     private let tintColor: UIColor
 
+    public weak var delegate: LandingKitDelegate?
+    
     /**
      * Instances to connect with LandingViewController & Passing the Properties / Dependencies
      * This will be invoke whenever the Init of LandingKit is Run
@@ -19,6 +27,12 @@ public class LandingKit {
         let controller = LandingViewController(slides: slides, tintColor: tintColor)
         controller.modalTransitionStyle = .crossDissolve
         controller.modalPresentationStyle = .fullScreen
+        controller.nextButtonDidTap = { [weak self] index in
+            self?.delegate?.nextButtonDidTap(atIndex: index)
+        }
+        controller.getStartedButtonDidTap = { [weak self] in
+            self?.delegate?.getStartedButtonDidTap()
+        }
         return controller
     }()
     

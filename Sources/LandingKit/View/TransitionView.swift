@@ -64,6 +64,11 @@ class TransitionView: UIView {
     
     private var index: Int = -1 // Index Pointer to keep the Array of Slides
     
+    // Read Only Var for Index Calls in Controller
+    var slideIndex: Int {
+        return index
+    }
+    
     // Internal Init for TransitionView
     init(slides: [Slide], tintColor: UIColor) {
         self.slides = slides
@@ -118,6 +123,7 @@ class TransitionView: UIView {
             nextBarView = barViews[index + 1]
             index += 1
         } else {
+            barViews.forEach({ $0.reset() })
             // we are on the last index, we want to show the first
             nextImage = slides[0].image
             nextTitle = slides[0].title
@@ -157,6 +163,23 @@ class TransitionView: UIView {
         // Making ImageView Taking 80% of the Entire Height
         imageView.snp.makeConstraints { make in
             make.height.equalTo(stackView.snp.height).multipliedBy(0.8)
+        }
+    }
+    
+    // Function For Handling the Tap Depending on the Direction Area
+    func handleTap(direction: Direction) {
+        switch direction {
+        case .left:
+            barViews[index].reset()
+            if barViews.indices.contains(index - 1) {
+                barViews[index - 1].reset()
+            }
+            index -= 2
+        case .right:
+            barViews[index].complete()
+            timer?.cancel()
+            timer = nil
+            start()
         }
     }
 }

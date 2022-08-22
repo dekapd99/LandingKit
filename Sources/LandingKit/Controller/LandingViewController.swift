@@ -10,6 +10,10 @@ import UIKit
 // Routes commands to the model and view parts
 class LandingViewController: UIViewController {
     
+    // Index Closure for Button
+    var nextButtonDidTap: ((Int) -> Void)?
+    var getStartedButtonDidTap: (() -> Void)?
+    
     // Properties / Dependencies for Init
     private let slides: [Slide]
     private let tintColor: UIColor
@@ -19,14 +23,16 @@ class LandingViewController: UIViewController {
         let view = TransitionView(slides: slides, tintColor: tintColor)
         return view
     }()
+    
+    // Logic for Tapping the Buttons
     private lazy var buttonContainerView: ButtonContainerView = {
         let view = ButtonContainerView(tintColor: tintColor)
-        view.nextButtonDidTap = {
-            print("Next Button Tapped")
+        view.nextButtonDidTap = { [weak self] in
+            guard let this = self else { return }
+            this.nextButtonDidTap?(this.transitionView.slideIndex)
+            this.transitionView.handleTap(direction: .right)
         }
-        view.getStartedButtonDidTap = {
-            print("Get Started Button Tapped")
-        }
+        view.getStartedButtonDidTap = getStartedButtonDidTap
         return view
     }()
     
@@ -52,6 +58,7 @@ class LandingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupGesture()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,6 +77,23 @@ class LandingViewController: UIViewController {
         
         buttonContainerView.snp.makeConstraints { make in
             make.height.equalTo(120) // Taking 120 pixels height for buttonContainerView
+        }
+    }
+    
+    // Tap Gesture: Observing transitionView (handleTap)
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewDidAppear(_:)))
+        transitionView.addGestureRecognizer(tapGesture)
+    }
+    
+    // Objective-C Function: #Selector addTarget for Left & Right Area
+    @objc private func viewDidTap(_ tap: UITapGestureRecognizer) {
+        let point = tap.location(in: view)
+        let midPoint = view.frame.size.width / 2
+        if point.x > midPoint {
+            transitionView.handleTap(direction: .right)
+        } else {
+            transitionView.handleTap(direction: .left)
         }
     }
 }
