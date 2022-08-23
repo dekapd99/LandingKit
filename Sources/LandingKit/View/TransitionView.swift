@@ -111,12 +111,11 @@ class TransitionView: UIView {
         let nextTitle: String
         let nextBarView: AnimatedBarView
         
-        // if index is last, show first array of slides
-        // else show next index
-        
-        // let say we are in the last elements which is index 4, if 4 + 1 = 5
-        // then change 5 into 0, because there is no index 5, we want to go back to first index
-        
+        /**
+         * if index is last, show first array of slides, else show next index
+         * let say we are in the last elements which is index 4, if 4 + 1 = 5
+         * then change 5 into 0, because there is no index 5, we want to go back to first index
+         */
         if slides.indices.contains(index + 1) {
             nextImage = slides[index + 1].image
             nextTitle = slides[index + 1].title
@@ -124,7 +123,7 @@ class TransitionView: UIView {
             index += 1
         } else {
             barViews.forEach({ $0.reset() })
-            // we are on the last index, we want to show the first
+            // We are on the last index, we want to show the first
             nextImage = slides[0].image
             nextTitle = slides[0].title
             nextBarView = barViews[0]
