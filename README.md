@@ -3,7 +3,7 @@ LandingKit is iOS Library based app for Landing Pages with Storyboard, SwiftUI, 
 
 ### Preview
 <p align="center">
-  <a href="#" target="_blank"><img src="1.png" width="200"></a>
+  <a href="#" target="_blank"><img src="1.gif" width="200"></a>
 </p>
 
 <!-- ABOUT THE FILE & FOLDER STRUCTURE -->
