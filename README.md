@@ -1,16 +1,9 @@
-<!-- ABOUT THE PROJECT -->
-<p align="center">
-  <a href="#" target="_blank"><img src="Foody.png" width="200"></a>
-</p>
-
 # LandingKit
 LandingKit is iOS Library based app for Landing Pages with Storyboard, SwiftUI, SnapKit, & Combine Framework. This application is made so that I can Study iOS Frontend Science and iOS Library for personal interest.
 
 ### Preview
 <p align="center">
   <a href="#" target="_blank"><img src="1.png" width="200"></a>
-  <a href="#" target="_blank"><img src="2.png" width="200"></a>
-  <a href="#" target="_blank"><img src="3.png" width="200"></a>
 </p>
 
 <!-- ABOUT THE FILE & FOLDER STRUCTURE -->
