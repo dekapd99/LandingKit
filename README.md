@@ -1,5 +1,5 @@
 # LandingKit
-LandingKit is iOS Library based app for Landing Pages with Storyboard, SwiftUI, SnapKit, & Combine Framework. This application is made so that I can Study iOS Frontend Science and iOS Library for personal interest.
+LandingKit is iOS Library based app for Landing Pages with Storyboard, SwiftUI, SnapKit, MVC Architecture & Combine Framework. This application is made so that I can Study iOS Frontend Science and iOS Library for personal interest.
 
 ### Preview
 <p align="center">
